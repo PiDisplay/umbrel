@@ -1,14 +1,19 @@
-name: Build OS image PR
-on: ["pull_request"]
+name: Build OS image on PR
+
+on: [push]
 
 jobs:
-    build:
+  build:
 
-        runs-on: ubuntu-20.04
-        
-        steps:
-        
-        - uses: actions/checkout@v1
+    runs-on: ubuntu-20.04
 
-        - name: Test
-          run:  git remote -v
+    steps:
+    - uses: actions/checkout@v1
+    - uses: jwalton/gh-find-current-pr@v1
+      id: findPr
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Test PR
+      if: success() && steps.findPr.outputs.pr
+      run: |
+        echo "Your PR is ${PR}"
