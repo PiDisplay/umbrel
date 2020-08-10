@@ -1,0 +1,14 @@
+name: Build OS image PR
+on: ["pull_request"]
+
+jobs:
+    build:
+
+        runs-on: ubuntu-20.04
+        
+        steps:
+        
+        - uses: actions/checkout@v1
+
+        - name: Test
+          run:  git remote -v
