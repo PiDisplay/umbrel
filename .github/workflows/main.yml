@@ -15,5 +15,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Test PR
       if: success() && steps.findPr.outputs.pr
+      env:
+        PR: ${{ steps.findPr.outputs.pr }}
       run: |
         echo "Your PR is ${PR}"
