@@ -42,7 +42,6 @@ jobs:
         git clone git://github.com/AaronDewes/umbrel-os.git
               
     - name: Setting env vars
-      if: success() && steps.findPr.outputs.pr
       env:
         PR: ${{ steps.findPr.outputs.pr }}
       run: |
@@ -57,9 +56,6 @@ jobs:
         echo "::set-env name=UMBREL_BRANCH::$UMBREL_BRANCH"
               
     - name: Build Umbrel OS
-      if: success() && steps.findPr.outputs.pr
-      env:
-        PR: ${{ steps.findPr.outputs.pr }}
       run: |
         cd umbrel-os
         echo "Building $IMAGE_NAME"
@@ -67,12 +63,9 @@ jobs:
         cd ..
         
     - name: Copy ZIP to current working dir
-      if: success() && steps.findPr.outputs.pr
-      env:
-        PR: ${{ steps.findPr.outputs.pr }}
       run: cp umbrel-os/deploy/*.zip ./
 
-    - name: Build Umbrel OS
+    - name: Uploading artifacts
       uses: actions/upload-artifact@v2
       with:
         path: ${{ env.IMAGE_NAME }}.zip
