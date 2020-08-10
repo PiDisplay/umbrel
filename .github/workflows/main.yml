@@ -1,6 +1,6 @@
 name: Build OS image on PR
 
-on: ["pull_request"]
+on: [push]
 
 jobs:
   build:
@@ -14,24 +14,29 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run apt update
+      if: success() && steps.findPr.outputs.pr
       run: sudo apt update
 
     - name: Install dependencies
+      if: success() && steps.findPr.outputs.pr
       run: sudo apt -y install quilt qemu-user-static debootstrap libarchive-tools jq
 
     - name: Nuke current Docker installation
+      if: success() && steps.findPr.outputs.pr
       run: |
         sudo systemctl stop docker
         sudo apt-get purge docker-ce docker-ce-cli containerd.io moby-engine moby-cli
         sudo rm -rf /var/lib/docker
 
     - name: Re-install Docker
+      if: success() && steps.findPr.outputs.pr
       run: |
         curl -fsSL https://get.docker.com -o get-docker.sh
         sudo sh get-docker.sh
         docker --version
 
     - name: Enable experimental features in Docker
+      if: success() && steps.findPr.outputs.pr
       run: |
         sudo rm -rf /etc/docker/daemon.json
         echo '{"experimental": true}' | sudo tee -a /etc/docker/daemon.json
@@ -42,6 +47,7 @@ jobs:
         git clone git://github.com/AaronDewes/umbrel-os.git
               
     - name: Setting env vars
+      if: success() && steps.findPr.outputs.pr
       env:
         PR: ${{ steps.findPr.outputs.pr }}
       run: |
@@ -56,6 +62,7 @@ jobs:
         echo "::set-env name=UMBREL_BRANCH::$UMBREL_BRANCH"
               
     - name: Build Umbrel OS
+      if: success() && steps.findPr.outputs.pr
       run: |
         cd umbrel-os
         echo "Building $IMAGE_NAME"
@@ -63,9 +70,11 @@ jobs:
         cd ..
         
     - name: Copy ZIP to current working dir
+      if: success() && steps.findPr.outputs.pr
       run: cp umbrel-os/deploy/*.zip ./
 
     - name: Uploading artifacts
+      if: success() && steps.findPr.outputs.pr
       uses: actions/upload-artifact@v2
       with:
         path: ${{ env.IMAGE_NAME }}.zip
