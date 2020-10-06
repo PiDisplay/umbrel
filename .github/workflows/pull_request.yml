@@ -37,8 +37,9 @@ jobs:
       run: |
         UMBREL_OS_VERSION="dev"
         IMAGE_NAME="umbrel-os-dev"
+        CUSTOM_REPO="$(curl -s https://api.github.com/repos/getumbrel/umbrel/pulls/66 | jq .head.repo.full_name | sed 's/"//g')"
         UMBREL_REPO="$(curl -s https://api.github.com/repos/getumbrel/umbrel/pulls/${PR} | jq .head.repo.clone_url | sed 's/"//g')"
-        UMBREL_BRANCH="$(curl -s https://api.github.com/repos/getumbrel/umbrel/pulls/${PR} | jq .head.ref | sed 's/"//g')"
+        UMBREL_BRANCH="$(curl https://api.github.com/repos/$CUSTOM_REPO/branches/master | jq .commit.sha | sed 's/"//g')"
         echo "::set-env name=UMBREL_OS_VERSION::$UMBREL_OS_VERSION"
         echo "::set-env name=IMAGE_NAME::$IMAGE_NAME"
         echo "::set-env name=UMBREL_REPO::$UMBREL_REPO"
