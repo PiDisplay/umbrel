@@ -196,6 +196,16 @@ services:
               networks:
                   net:
                       ipv4_address: 10.11.4.0
+        redis:
+              container_name: redis
+              image: redis:latest
+              restart: on-failure
+              stop_grace_period: 5m
+              ports:
+                  - "6379:6379"
+              networks:
+                  net:
+                      ipv4_address: 10.11.6.0
 networks:
     net:
         ipam:
