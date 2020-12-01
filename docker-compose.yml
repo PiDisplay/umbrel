@@ -207,6 +207,25 @@ services:
               networks:
                   net:
                       ipv4_address: 10.11.6.0
+        lndhub:
+                container_name: lndhub
+                image: aarondewes/lndhub:master
+                logging: *default-logging
+                depends_on: [ redis ]
+                restart: on-failure
+                stop_grace_period: 5m30s
+                volumes:
+                        - ${PWD}/lnd:/lnd:ro
+                environment:
+                    BITCOIN_RPC_HIDDEN_SERVICE_FILE: "/var/lib/tor/bitcoin-rpc/hostname"
+                    BITCOIN_RPC_PORT: $BITCOIN_RPC_PORT
+                    BITCOIN_RPC_USER: $BITCOIN_RPC_USER
+                    BITCOIN_RPC_PASSWORD: $BITCOIN_RPC_PASS
+                    LND_CERT_FILE: "/lnd/tls.cert"
+                    LND_ADMIN_MACAROON_FILE: "/lnd/data/chain/bitcoin/${BITCOIN_NETWORK}/admin.macaroon"
+                networks:
+                    net:
+                        ipv4_address: 10.11.2.1
 networks:
     net:
         ipam:
