@@ -223,7 +223,7 @@ services:
                     BITCOIN_RPC_PASSWORD: $BITCOIN_RPC_PASS
                     LND_CERT_FILE: "/lnd/tls.cert"
                     LND_ADMIN_MACAROON_FILE: "/lnd/data/chain/bitcoin/${BITCOIN_NETWORK}/admin.macaroon"
-                    CONFIG: '{ "bitcoind": { "rpc": "http://${BITCOIN_RPC_USER}:${BITCOIN_RPC_PASS}@10.11.1.1:${BITCOIN_RPC_PORT}/wallet/wallet.dat"}, "redis": { "port": 6379, "host": "10.11.6.0", "family": 4, "password": "testpass", "db": 0 }, "lnd": { "url": "127.0.0.1:10009", "password": ""}}'
+                    CONFIG: '{ "bitcoind": { "rpc": "http://${BITCOIN_RPC_USER}:${BITCOIN_RPC_PASS}@127.0.0.1:${BITCOIN_RPC_PORT}/wallet/wallet.dat"}, "redis": { "port": 6379, "host": "127.0.0.1", "family": 4, "password": "testpass", "db": 0 }, "lnd": { "url": "127.0.0.1:10009", "password": ""}}'
                 networks:
                     net:
                         ipv4_address: 10.11.6.1
