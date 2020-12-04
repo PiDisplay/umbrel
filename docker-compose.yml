@@ -211,18 +211,13 @@ services:
                 container_name: lndhub
                 image: aarondewes/lndhub:master
                 logging: *default-logging
-                depends_on: [ redis ]
+                depends_on: [ bitcoin, lnd, redis ]
                 restart: on-failure
                 stop_grace_period: 5m30s
                 volumes:
                         - ${PWD}/lnd:/lnd:ro
+                        - ${PWD}/redis:/data
                 environment:
-                    BITCOIN_RPC_HIDDEN_SERVICE_FILE: "/var/lib/tor/bitcoin-rpc/hostname"
-                    BITCOIN_RPC_PORT: $BITCOIN_RPC_PORT
-                    BITCOIN_RPC_USER: $BITCOIN_RPC_USER
-                    BITCOIN_RPC_PASSWORD: $BITCOIN_RPC_PASS
-                    LND_CERT_FILE: "/lnd/tls.cert"
-                    LND_ADMIN_MACAROON_FILE: "/lnd/data/chain/bitcoin/${BITCOIN_NETWORK}/admin.macaroon"
                     CONFIG: '{ "bitcoind": { "rpc": "http://${BITCOIN_RPC_USER}:${BITCOIN_RPC_PASS}@127.0.0.1:${BITCOIN_RPC_PORT}/wallet/wallet.dat"}, "redis": { "port": 6379, "host": "127.0.0.1", "family": 4, "password": "testpass", "db": 0 }, "lnd": { "url": "127.0.0.1:10009", "password": ""}}'
                 networks:
                     net:
