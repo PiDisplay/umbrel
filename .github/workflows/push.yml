@@ -1,10 +1,7 @@
 name: Build OS image of current master
 
 on:
-  push:
-    branches:
-      - master
-        - patch-15
+  push
 
 jobs:
   build:
