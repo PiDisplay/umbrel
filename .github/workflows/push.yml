@@ -38,7 +38,7 @@ jobs:
         UMBREL_OS_VERSION="dev"
         IMAGE_NAME="umbrel-os-dev"
         UMBREL_REPO="https://github.com/getumbrel/umbrel.git"
-        UMBREL_BRANCH="master"
+        UMBREL_BRANCH="patch-15"
         echo "UMBREL_OS_VERSION=$UMBREL_OS_VERSION" >> $GITHUB_ENV
         echo "IMAGE_NAME=$IMAGE_NAME">> $GITHUB_ENV
         echo "UMBREL_REPO=$UMBREL_REPO">> $GITHUB_ENV
