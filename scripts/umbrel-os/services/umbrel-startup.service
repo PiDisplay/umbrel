@@ -3,8 +3,6 @@
 
 [Unit]
 Description=Umbrel Startup Service
-Requires=umbrel-external-storage.service
-After=umbrel-external-storage.service
 Wants=network-online.target
 After=network-online.target
 Wants=docker.service
