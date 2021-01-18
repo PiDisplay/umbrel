@@ -168,15 +168,12 @@
         "name": "Mastodon",
         "version": "0.0.1",
         "tagline": "Testing...",
-        "description": "BTC RPC Explorer is a full-featured, self-hosted explorer for the Bitcoin blockchain. With this explorer, you can explore not just the blockchain database, but also explore the functional capabilities of your Umbrel.\n\nIt comes with a network summary dashboard, detailed view of blocks, transactions, addresses, along with analysis tools for viewing stats on miner activity, mempool summary, with fee, size, and age breakdowns. You can also search by transaction ID, block hash/height, and addresses.\n\nIt's time to appreciate the \"fullness\" of your node.",
-        "developer": "Dan Janosik",
-        "website": "https://explorer.btc21.org",
-        "dependencies": [
-            "bitcoind",
-            "electrum"
-        ],
-        "repo": "https://github.com/janoside/btc-rpc-explorer",
-        "support": "https://github.com/janoside/btc-rpc-explorer/discussions",
+        "description": "Still in beta, this is just an experiment",
+        "developer": "Mastodon Team",
+        "website": "https://joinmastodon.org/",
+        "dependencies": [],
+        "repo": "https://github.com/tootsuite/mastodon",
+        "support": "https://github.com/tootsuite/mastodon/issues",
         "port": 4001,
         "gallery": [
             "1.jpg",
