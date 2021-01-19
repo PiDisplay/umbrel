@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Help text
+if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+ echo "Configure a UPS (Uninterruptible Power Supply) for Umbrel"
+ echo "ups on apcusb"
+ echo "ups status"
+ echo "ups off"
+ exit 1
+fi
+
+# Enable UPS support
+if [ "$1" = "1" ] || [ "$1" = "on" ]; then
+
+  echo "UPS is being enabled..."
+
+  if [ "$2" = "apcusb" ]; then
+   
+    # MODEL: APC with USB connection
+    # see video: https://www.youtube.com/watch?v=6UrknowJ12o
+
+    # installs apcupsd.service
+    sudo apt-get install -f apcupsd
+
+    # edit config: /etc/apcupsd/apcupsd.conf
+    sudo systemctl stop apcupsd
+    sudo systemctl disable apcupsd
+
+    # make service autostart
+    sudo sed -i '3iAfter=background.service' /lib/systemd/system/apcupsd.service
+    sudo sed -i '3iWants=background.service' /lib/systemd/system/apcupsd.service
+
+    sudo sed -i "s/^UPSCABLE.*/UPSCABLE usb/g" /etc/apcupsd/apcupsd.conf
+    sudo sed -i "s/^UPSTYPE.*/UPSTYPE usb/g" /etc/apcupsd/apcupsd.conf
+    sudo sed -i "s/^DEVICE.*/DEVICE/g" /etc/apcupsd/apcupsd.conf
+    # give the Umbrel a minimum of 20 min to shutdown
+    sudo sed -i "s/^MINUTES.*/MINUTES 20/g" /etc/apcupsd/apcupsd.conf
+    # some APC UPS were not running stable below 90% Battery - so start shutdown at 95% remaining
+    sudo sed -i "s/^BATTERYLEVEL.*/BATTERYLEVEL 95/g" /etc/apcupsd/apcupsd.conf
+    sudo sed -i "s/^ISCONFIGURED=.*/ISCONFIGURED=yes/g" /etc/default/apcupsd
+    sudo sed -i "s/^SHUTDOWN=.*/SHUTDOWN=\/home\/admin\/XXshutdown.sh/g" /etc/apcupsd/apccontrol
+    sudo sed -i "s/^WALL=.*/#WALL=wall/g" /etc/apcupsd/apccontrol
+    sudo systemctl enable apcupsd
+    sudo systemctl start apcupsd
+
+    echo "The UPS is now configured successfully"
+    echo "You can check the status of the connection with the command 'apcaccess'."
+
+  else
+    echo "Unsupported or missing second parameter 'UPSTYPE' (current value: ${2})"
+    exit 1
+  fi
+
+fi
+
+# STATUS
+if [ "$1" = "status" ]; then
+  
+  # check if already activated
+  if [ ${#ups} -eq 0 ] || [ "${ups}" = "off" ]; then
+    echo "upsStatus='OFF'"
+    exit 0
+  fi
+
+  if [ "${ups}" = "apcusb" ]; then
+    status=$(apcaccess -p STATUS 2>/dev/null | xargs)
+    if [ ${#status} -eq 0 ]; then
+      echo "upsStatus='n/a'"
+    else
+      echo "upsStatus='${status}'"
+      # get battery level if possible
+      if [ "${status}" = "ONLINE" ] || [ "${status}" = "ONBATT" ]; then
+        battery=$(apcaccess -p BCHARGE | xargs | cut -d "." -f1)
+        echo "upsBattery=${battery}"
+      fi
+    fi
+    exit 0
+  else
+    echo "upsStatus='CONFIG'"
+    exit 0
+  fi
+
+fi
+
+# Disable UPS support
+if [ "$1" = "0" ] || [ "$1" = "off" ]; then
+
+  echo "Turning UPS support off"
+
+  if [ "${ups}" = "apcusb" ]; then
+    sudo systemctl stop apcupsd
+    sudo systemctl disable apcupsd
+  else
+    echo "Unknown UPS type: ${ups}"
+    exit 1
+  fi
+
