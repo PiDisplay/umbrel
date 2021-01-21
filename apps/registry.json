@@ -161,5 +161,29 @@
         ],
         "path": "",
         "defaultPassword": ""
+    },
+    {
+        "id": "lndhub",
+        "category": "Lightning Node Management",
+        "name": "BlueWallet server",
+        "version": "0.0.1",
+        "tagline": "Connect your BlueWallet to your Umbrel",
+        "description": "Still in beta, requires a beta version of BlueWallet: http://filestorage.bluewallet.io:1488/tor4lndhub-1611241160.apk",
+        "developer": "BlueWallet Team",
+        "website": "https://bluewallet.io",
+        "dependencies": [
+            "bitcoind",
+            "electrum"
+        ],
+        "repo": "https://github.com/BlueWallet/LndHub",
+        "support": "https://t.me/bluewallet",
+        "port": 3005,
+        "gallery": [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg"
+        ],
+        "path": "",
+        "defaultPassword": ""
     }
 ]
