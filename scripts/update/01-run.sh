@@ -37,6 +37,9 @@ if [[ ! -z "${UMBREL_OS:-}" ]]; then
         systemctl restart avahi-daemon.service
     fi
 
+    # Remove the raspberrypi-sys-mods to avoid the microsoft gpg key
+    apt-get remove raspberrypi-sys-mods -y
+
     # Update SD card installation
     if  [[ -f "${SD_CARD_UMBREL_ROOT}/.umbrel" ]]; then
         echo "Replacing ${SD_CARD_UMBREL_ROOT} on SD card with the new release"
