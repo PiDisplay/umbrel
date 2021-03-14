@@ -1,6 +1,6 @@
 {
-    "version": "0.3.2",
-    "name": "Umbrel v0.3.2",
+    "version": "0.3.7",
+    "name": "Umbrel v0.3.7",
     "requires": ">=0.2.1",
-    "notes": "This update brings the latest versions of BTCPay Server, Sphinx Relay, Specter Desktop and Thunderhub to your Umbrel."
+    "notes": "This update includes minor bug fixes for improved stability and security of your Umbrel.\n\nIf you face any difficulties while updating, please message us on Telegram: https://t.me/getumbrel"
 }
