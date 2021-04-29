@@ -80,4 +80,8 @@ HiddenServicePort 80 <app-samourai-server-whirlpool-ip>:<app-samourai-server-whi
 HiddenServiceDir /var/lib/tor/app-bluewallet
 HiddenServicePort 80 <app-bluewallet-lndhub-ip>:<app-bluewallet-lndhub-port>
 
+# Kraken Hidden Service
+HiddenServiceDir /var/lib/tor/app-kraken
+HiddenServicePort 80 <app-kraken-ip>:<app-kraken-port>
+
 HashedControlPassword <password>

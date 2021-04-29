@@ -255,5 +255,28 @@
         ],
         "path": "",
         "defaultPassword": ""
+    },
+    {
+        "id": "kraken",
+        "category": "Beta",
+        "name": "Stacking Sats using Kraken",
+        "version": "0.0.1",
+        "tagline": "Beta app",
+        "description": "This is still in beta.",
+        "developer": "BlueWallet",
+        "website": "https://umbrel.tech/kraken",
+        "dependencies": [
+            "lnd"
+        ],
+        "repo": "https://umbrel.tech/kraken",
+        "support": "https://umbrel.tech/kraken",
+        "port": 3009,
+        "gallery": [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg"
+        ],
+        "path": "",
+        "defaultPassword": ""
     }
 ]
