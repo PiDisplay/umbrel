@@ -185,7 +185,7 @@ main () {
   block_device_model=$(get_block_device_model $block_device)
   echo "Found device \"${block_device_model}\""
 
-  if [[ $block_device !== nvme* ]]; then
+  if [[ $block_device != nvme* ]]; then
     echo "Blacklisting USB device IDs against UAS driver..."
     blacklist_uas
 
