@@ -255,5 +255,29 @@
         ],
         "path": "",
         "defaultPassword": ""
+    },
+    {
+        "id": "pidiplay",
+        "category": "Hardware",
+        "name": "PiDisplay",
+        "version": "1.3.3",
+        "tagline": "Use a 3.5\" screen on the GPIO pins",
+        "description": "Connect a screen to the GPIO pins and display information on it\n\nIDK what to put here, you'll need to do this, @EddWilliams",
+        "developer": "PiDisplay team",
+        "website": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "dependencies": [
+            "lnd",
+            "bitcoind"
+        ],
+        "repo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "support": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "port": 0,
+        "gallery": [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg"
+        ],
+        "path": "",
+        "defaultPassword": ""
     }
 ]
