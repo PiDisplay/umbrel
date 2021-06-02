@@ -257,21 +257,21 @@
         "defaultPassword": ""
     },
     {
-        "id": "pidiplay",
+        "id": "pidisplay",
         "category": "Hardware",
         "name": "PiDisplay",
-        "version": "1.3.3",
-        "tagline": "Use a 3.5\" screen on the GPIO pins",
-        "description": "Connect a screen to the GPIO pins and display information on it\n\nIDK what to put here, you'll need to do this, @EddWilliams",
-        "developer": "PiDisplay team",
-        "website": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "version": "0.0.1",
+        "tagline": "View node data from a GPIO Screen",
+        "description": "Connect a 3.5\" Screen to the GPIO pins and get an overview of your node's status. View sync status, channel balance and lightning forwards in a glance",
+        "developer": "PiDisplay Team",
+        "website": "https://github.com/PiDisplay",
         "dependencies": [
             "lnd",
             "bitcoind"
         ],
-        "repo": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "support": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "port": 0,
+        "repo": "https://github.com/PiDisplay",
+        "support": "https://github.com/PiDisplay/PiDisplay/issues",
+        "port": 3010,
         "gallery": [
             "1.jpg",
             "2.jpg",
